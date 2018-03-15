@@ -5,6 +5,7 @@ supermegarega Infra repository
 Создал два экземпляра VM  bastion и someinternalhost.
 Настроил ssh Forwarding для подключения.
 Настроил OpenVPN сервер для подключения.
+Настроил подключение в одну команду и с использованием алиаса.
 ```
 bastion_IP = 35.195.174.202
 someinternalhost_IP = 10.132.0.3
