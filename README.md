@@ -17,7 +17,7 @@ someinternalhost_IP = 10.132.0.3
 `ssh-add ~/.ssh/appuser`
 
 ssh Forwarding
-`cat ~/.ssh/config`
+`~/.ssh/config`
 ```
 Host bastion
   Hostname 35.195.174.202
