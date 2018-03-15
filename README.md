@@ -32,7 +32,7 @@ Host someinternalhost
 `ssh -i ~/.ssh/appuser -A appuser@someinternalhost`
 
 Подключение по алиасу
-`cat ~/.bash_profile`
+`~/.bash_profile`
 ```
 ...
 ...
