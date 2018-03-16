@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
   if [ $? -eq 0 ]; then
     echo "Command executed successfully!"
   else
@@ -8,7 +8,7 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
     exit 1
   fi
 
-sudo bash -c 'echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" > /etc/apt/sources.list.d/mongodb-org-3.2.list'
+bash -c 'echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" > /etc/apt/sources.list.d/mongodb-org-3.2.list'
   if [ $? -eq 0 ]; then
     echo "Command executed successfully!"
   else
@@ -16,8 +16,8 @@ sudo bash -c 'echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.
     exit 1
   fi
 
-sudo apt update
-sudo apt install -y mongodb-org
+apt update
+apt install -y mongodb-org
   if [ $? -eq 0 ]; then
     echo "Command executed successfully!"
   else
@@ -25,6 +25,6 @@ sudo apt install -y mongodb-org
     exit 1
   fi
 
-sudo systemctl start mongod
-sudo systemctl enable mongod
+systemctl start mongod
+systemctl enable mongod
 
