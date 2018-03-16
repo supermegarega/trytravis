@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/appuser/
+apt install git
 git clone -b monolith https://github.com/express42/reddit.git
   if [ $? -eq 0 ]; then
     echo "Command executed successfully!"
