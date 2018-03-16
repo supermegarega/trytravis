@@ -49,7 +49,7 @@ install_mongodb.sh - скрипт установки Mongodb
 deploy.sh - скрипт установки Puma
 startup_script.sh - скрипт автоматической установки и деплоя Puma.
 
-#Создание VM с помощью gcloud CLI.
+# Создание VM с помощью gcloud CLI.
 
 gcloud compute instances create reddit-app \
   --boot-disk-size=10GB \
