@@ -41,7 +41,7 @@ alias someinternalhost='ssh -i ~/.ssh/appuser -A appuser@someinternalhost'
 `ssh someinternalhost`
 
 # Конфигурация cloud-testapp.
-reddit-app_IP=35.205.66.67
+reddit-app_IP = 35.205.66.67
 install_ruby.sh - скрипт установки Ruby
 install_mongodb.sh - скрипт установки Mongodb
 deploy.sh - скрипт установки Puma
