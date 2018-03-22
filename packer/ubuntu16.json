@@ -1,8 +1,8 @@
 {
    "variables": {
-        "project_id": "infra-198011",
+        "project_id": null,
         "machine_type": "f1-micro",
-        "source_image_family": "ubuntu-1604-lts"
+        "source_image_family": null
     },
    "builders": [
         {
