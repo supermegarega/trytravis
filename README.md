@@ -95,3 +95,13 @@ config-scripts/create-reddit-vm.sh - скрипт для создания инс
 Перейти по ссылке http://35.195.206.35:9292
 Зарегистрироваться.
 
+#Homework-7 Практика IaC с использованием Terraform
+
+#Конфигурация
+terraform/main.tf - main configuration 
+terraform/variables.tf - variables
+terraform/outputs.tf - output variables
+terraform/lb.tf - load balancer configuration 
+terraform/files/deploy.sh - script for deploy Puma
+terraform/files/puma.service - systemd unit for Puma
+
