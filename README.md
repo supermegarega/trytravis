@@ -77,3 +77,21 @@ ruby-bundler
 build-essential
 mongodb-org
 
+#Homework-6 Сборка образов VM при помощи Packer
+
+#Конфигурация
+reddit-app_ip = 35.195.206.35
+
+packer/files/puma.service - systemd unit для Puma
+packer/scripts/deploy-puma.sh - скрипт для установки Puma.
+packer/immutable.json - immutable шаблон для создания образа.
+packer/ubuntu16.json - шаблон для создания образа.
+config-scripts/create-reddit-vm.sh - скрипт для создания инстанса.
+
+#Как запустить проект
+выполнить config-scripts/create-reddit-vm.sh
+
+#Как проверить работоспособность
+Перейти по ссылке http://35.195.206.35:9292
+Зарегистрироваться.
+
