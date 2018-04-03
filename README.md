@@ -105,3 +105,12 @@ terraform/lb.tf - load balancer configuration
 terraform/files/deploy.sh - script for deploy Puma
 terraform/files/puma.service - systemd unit for Puma
 
+#Homework-8 Terraform: ресурсы, модули, окружения и работа в команде
+
+#Конфигурация
+terraform/modules/ - Terraformmodules
+terraform/prod/ - Prod environment
+terraform/stage/ - Stage environment
+terraform/storage-bucket.tf - Remote storage for terraform.tfstate
+terraform/prod/backend.tf - Backend config
+
