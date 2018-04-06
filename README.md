@@ -121,5 +121,5 @@ ansible/inventory - Inventory ini
 ansible/inventory.yml - Inventory YAML
 ansible/inventory.json - Inventory JSON
 ansible/inventory.sh - Bash script for dinamic inventory
-
+ansible/clone.yml - Playbook clone repo
 
