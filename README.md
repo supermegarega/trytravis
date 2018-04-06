@@ -114,3 +114,12 @@ terraform/stage/ - Stage environment
 terraform/storage-bucket.tf - Remote storage for terraform.tfstate
 terraform/prod/backend.tf - Backend config
 
+#Homework-9 Знакомство с Ansible
+
+#Конфигурация
+ansible/inventory - Inventory ini
+ansible/inventory.yml - Inventory YAML
+ansible/inventory.json - Inventory JSON
+ansible/inventory.sh - Bash script for dinamic inventory
+
+
