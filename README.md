@@ -29,7 +29,7 @@ Host someinternalhost
   User appuser
   ProxyCommand ssh -v bastion -W %h:%p
 ```
-Подключение в одну команду  
+Подключение в одну команду
 `ssh -i ~/.ssh/appuser -A appuser@someinternalhost`
 
 Подключение по алиасу
@@ -98,10 +98,10 @@ config-scripts/create-reddit-vm.sh - скрипт для создания инс
 #Homework-7 Практика IaC с использованием Terraform
 
 #Конфигурация
-terraform/main.tf - main configuration 
+terraform/main.tf - main configuration
 terraform/variables.tf - variables
 terraform/outputs.tf - output variables
-terraform/lb.tf - load balancer configuration 
+terraform/lb.tf - load balancer configuration
 terraform/files/deploy.sh - script for deploy Puma
 terraform/files/puma.service - systemd unit for Puma
 
@@ -122,4 +122,3 @@ ansible/inventory.yml - Inventory YAML
 ansible/inventory.json - Inventory JSON
 ansible/inventory.sh - Bash script for dinamic inventory
 ansible/clone.yml - Playbook clone repo
-
