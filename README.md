@@ -10,3 +10,16 @@ supermegarega microservices repository
 - Удалены контейнеры и образы.
 - Изучены базовые команды для управления Docker.
 
+# homework-14 Docker-контейнеры. Docker под капотом
+
+- Создан новый проект docker в GCP
+- Настроена docker-machine
+- Создан docker образ smrdevops/otus-reddit
+- Создана учетная запись на https://hub.docker.com/ 
+- Образ otus-reddit загружен в hub.docker.com
+- Протестирована работа образа otus-reddit в docker-host и локально
+- Реализовано:
+    поднятие инстансов с помощью Terraform
+    плэйбуки ansible с использованием gce.py для установки docker и запуска образа приложения
+    шаблон packer для создания образа с установленным docker
+
