@@ -8,6 +8,6 @@ RUN apk add --no-cache python3
 WORKDIR /app
 COPY . /app
 
-RUN pip3 install -r /app/requirements.txt
+RUN pip3 install --no-cache -r /app/requirements.txt
 ENTRYPOINT ["python3", "post_app.py"]
 
