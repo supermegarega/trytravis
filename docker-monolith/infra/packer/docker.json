@@ -1,0 +1,30 @@
+{
+   "variables": {
+        "project_id": null,
+        "machine_type": null,
+        "source_image_family": null
+    },
+   "builders": [
+        {
+        "type": "googlecompute",
+        "project_id": "{{user `project_id`}}",
+        "image_name": "docker-{{timestamp}}",
+        "image_family": "docker",
+        "image_description": "Docker reddit-app image",
+        "source_image_family": "{{user `source_image_family`}}",
+        "disk_type": "pd-standard",
+        "disk_size": "10",
+        "zone": "europe-west1-b",
+        "network": "default",
+        "ssh_username": "appuser",
+        "machine_type": "{{user `machine_type`}}"
+        }
+    ],
+    "provisioners": [
+        {
+        "type": "ansible",
+        "playbook_file": "ansible/playbooks/docker_install.yml"
+        }
+    ]
+}
+

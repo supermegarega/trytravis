@@ -1,0 +1,10 @@
+variables.json
+*.tfstate
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfvars
+.terraform/
+*.retry
+*gce.ini
+docker-0f0b9a439240.json
+

@@ -1,0 +1,15 @@
+---
+- name: Deploy App
+  become: true
+  hosts: all
+
+  tasks:
+    - name: Deploy container from DockerHub
+      docker_container:
+        name: reddit
+        state: started
+        image: smrdevops/otus-reddit:1.0
+        pull: true
+        ports:
+          - "9292:9292"
+
