@@ -35,4 +35,3 @@ supermegarega microservices repository
 - Предложен вариант для уменьшения образов (post:3.0, comment:3.0, ui:4.0)
 - Подключен docker volume reddit_db
 - Протестирована работа контейнеров с использованием docker volume
-
