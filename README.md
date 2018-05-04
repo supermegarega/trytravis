@@ -36,3 +36,10 @@ supermegarega microservices repository
 - Подключен docker volume reddit_db
 - Протестирована работа контейнеров с использованием docker volume
 
+# homework-16 Docker: сети, docker-compose
+
+- Запущены контейнеры с разными драйверами (none, host, bridge)
+- Прослежены изменения namespace-ов с использованием разных драйверов
+- Протестирована работа контейнеров с использованием network-alias
+- Протестирована работа контейнеров с несколькими bridge сетями
+
