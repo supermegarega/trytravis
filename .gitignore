@@ -7,4 +7,5 @@ variables.json
 *.retry
 *gce.ini
 docker-0f0b9a439240.json
+*.env
 
