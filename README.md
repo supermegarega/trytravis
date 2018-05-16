@@ -15,7 +15,7 @@ supermegarega microservices repository
 - Создан новый проект docker в GCP
 - Настроена docker-machine
 - Создан docker образ smrdevops/otus-reddit
-- Создана учетная запись на https://hub.docker.com/ 
+- Создана учетная запись на https://hub.docker.com/
 - Образ otus-reddit загружен в hub.docker.com
 - Протестирована работа образа otus-reddit в docker-host и локально
 - Реализовано:
@@ -57,4 +57,3 @@ supermegarega microservices repository
 - Добавлены тесты в pipeline для приложения reddit
 - Протестирована работа CI/CD Pipeline
 - Настроена интеграция Pipeline с Slack чатом
-
