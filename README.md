@@ -15,7 +15,7 @@ supermegarega microservices repository
 - Создан новый проект docker в GCP
 - Настроена docker-machine
 - Создан docker образ smrdevops/otus-reddit
-- Создана учетная запись на https://hub.docker.com/ 
+- Создана учетная запись на https://hub.docker.com/
 - Образ otus-reddit загружен в hub.docker.com
 - Протестирована работа образа otus-reddit в docker-host и локально
 - Реализовано:
@@ -35,3 +35,13 @@ supermegarega microservices repository
 - Предложен вариант для уменьшения образов (post:3.0, comment:3.0, ui:4.0)
 - Подключен docker volume reddit_db
 - Протестирована работа контейнеров с использованием docker volume
+
+# homework-16 Docker: сети, docker-compose
+
+- Запущены контейнеры с разными драйверами (none, host, bridge)
+- Прослежены изменения namespace-ов с использованием разных драйверов
+- Протестирована работа контейнеров с использованием network-alias
+- Протестирована работа контейнеров с несколькими bridge сетями
+- Созданы сети back_net и front_net и aliases
+- Создана конфигурация с использованием переменных .env.example
+- Создан docker-compose.override.yml (позволяет изменять код каждого из приложений, не выполняя сборку образа и запускать debug с несколькими воркерами)
