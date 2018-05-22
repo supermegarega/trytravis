@@ -36,7 +36,7 @@ deploy_dev_job:
     - echo 'Deploy'
   environment:
     name: dev
-    url: http://35.233.56.55
+    url: http://dev.example.com
 
 staging:
   stage: stage
@@ -47,7 +47,7 @@ staging:
     - echo 'Deploy'
   environment:
     name: stage
-    url: http://35.233.56.55
+    url: https://beta.example.com
 
 production:
   stage: production
@@ -58,5 +58,5 @@ production:
     - echo 'Deploy'
   environment:
     name: production
-    url: http://35.233.56.55
+    url: https://example.com
 
