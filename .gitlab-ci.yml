@@ -3,6 +3,7 @@ stages:
   - build
   - test
   - review
+  - deploy
   - stage
   - production
 
@@ -10,19 +11,28 @@ variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
 before_script:
-  - cd reddit
-  - bundle install
-
+  - export homedir=$(pwd)
+  #- cd reddit
+  #- bundle install
+  
 build_job:
+  image: docker:latest
   stage: build
+  services:
+    - docker:dind
   script:
     - echo 'Building'
+    - docker build -t ${DOCKER_HUB_USER}/reddit:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID} docker-monolith
+    - echo ${DOCKER_HUB_PASS}|docker login --username ${DOCKER_HUB_USER} --password-stdin
+    - docker push ${DOCKER_HUB_USER}/reddit:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}
 
 test_unit_job:
   stage: test
   services:
     - mongo:latest
   script:
+    - cd reddit
+    - bundle install
     - ruby simpletest.rb
 
 test_integration_job:
@@ -39,11 +49,98 @@ deploy_dev_job:
     url: http://dev.example.com
 
 branch review:
+  image: docker:latest
   stage: review
-  script: echo "Deploy to $CI_ENVIRONMENT_SLUG"
+  cache:
+    key: dkmpath
+    paths:
+      - dkmpath
+  script:
+    - echo "Deploy to $CI_ENVIRONMENT_SLUG"
+    - apk update
+    - apk --no-cache add tar curl python docker
+    - pwd
+    - cd /usr/local
+    - wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-202.0.0-linux-x86_64.tar.gz &&
+        tar -xvf google-cloud-sdk-202.0.0-linux-x86_64.tar.gz &&
+        rm -f google-cloud-sdk-202.0.0-linux-x86_64.tar.gz &&
+        cd google-cloud-sdk && ./install.sh --quiet
+    - base=https://github.com/docker/machine/releases/download/v0.14.0 &&
+        curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine &&
+        install /tmp/docker-machine /usr/local/bin/docker-machine
+    - echo ${GCP_KEY} > /tmp/gcp.json
+    - /usr/local/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file /tmp/gcp.json
+    - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp.json
+    - cd $homedir
+    - docker-machine --storage-path dkmpath create --driver google --google-project ${GCP_PROJECT_ID} --google-machine-image https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts --google-machine-type n1-standard-1 --google-disk-size "20" --google-tags docker-host --google-zone europe-west1-b "${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}"
+
   environment:
     name: branch/$CI_COMMIT_REF_NAME
     url: http://$CI_ENVIRONMENT_SLUG.example.com
+  only:
+   - branches
+  except:
+   - master
+   
+deploy_dev_job:
+  image: docker:latest
+  stage: deploy
+  cache:
+    key: dkmpath
+    paths:
+      - dkmpath
+  script:
+    - echo 'Deploy'
+    - apk update
+    - apk --no-cache add tar curl python docker
+    - pwd
+    - cd /usr/local
+    - wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-202.0.0-linux-x86_64.tar.gz &&
+        tar -xvf google-cloud-sdk-202.0.0-linux-x86_64.tar.gz &&
+        rm -f google-cloud-sdk-202.0.0-linux-x86_64.tar.gz &&
+        cd google-cloud-sdk && ./install.sh --quiet
+    - base=https://github.com/docker/machine/releases/download/v0.14.0 &&
+        curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine &&
+        install /tmp/docker-machine /usr/local/bin/docker-machine
+    - echo ${GCP_KEY} > /tmp/gcp.json
+    - /usr/local/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file /tmp/gcp.json
+    - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp.json
+    - cd $homedir
+    - docker-machine --storage-path dkmpath ls
+    - eval $(docker-machine --storage-path dkmpath env --shell sh ${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID})
+    - docker run -d -p 9292:9292 --name redditapp ${DOCKER_HUB_USER}/reddit:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}
+  environment:
+    name: dev
+    url: http://dev.example.com
+    
+kill branch review:
+  image: docker:latest
+  stage: review
+  cache:
+    key: dkmpath
+    paths:
+      - dkmpath
+  script:
+    - apk update
+    - apk --no-cache add tar curl python docker
+    - pwd
+    - cd /usr/local
+    - wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-202.0.0-linux-x86_64.tar.gz &&
+        tar -xvf google-cloud-sdk-202.0.0-linux-x86_64.tar.gz &&
+        rm -f google-cloud-sdk-202.0.0-linux-x86_64.tar.gz &&
+        cd google-cloud-sdk && ./install.sh --quiet
+    - base=https://github.com/docker/machine/releases/download/v0.14.0 &&
+        curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine &&
+        install /tmp/docker-machine /usr/local/bin/docker-machine
+    - echo ${GCP_KEY} > /tmp/gcp.json
+    - /usr/local/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file /tmp/gcp.json
+    - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp.json
+    - cd $homedir
+    - docker-machine --storage-path dkmpath rm -f ${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID} || rm-rf dkmpath/*
+  environment:
+    name: branch/$CI_COMMIT_REF_NAME
+    action: stop
+  when: manual
   only:
     - branches
   except:
@@ -70,4 +167,4 @@ production:
   environment:
     name: production
     url: https://example.com
-
+    
