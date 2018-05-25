@@ -10,7 +10,6 @@ services:
           - post_db
           - comment_db
   ui:
-    build: ./ui
     image: ${USERNAME}/ui:${UI_VERSION}
     ports:
       - ${UI_SERVICE_HOST_PORT}:${UI_SERVICE_CON_PORT}/tcp
@@ -19,7 +18,6 @@ services:
         aliases:
           - ui
   post:
-    build: ./post-py
     image: ${USERNAME}/post:${POST_VERSION}
     networks:
       back_net:
@@ -29,7 +27,6 @@ services:
         aliases:
           - post
   comment:
-    build: ./comment
     image: ${USERNAME}/comment:${COMMENT_VERSION}
     networks:
       back_net:
@@ -39,8 +36,46 @@ services:
         aliases:
           - comment
 
+  prometheus:
+    image: ${USERNAME}/prometheus:${PROMETHEUS_VERSION}
+    ports:
+      - '9090:9090'
+    volumes:
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention=1d'
+    networks:
+      back_net:
+        aliases:
+          - prometheus
+      front_net:
+        aliases:
+          - prometheus
+
+  node-exporter:
+    image: prom/node-exporter:v0.15.2
+    user: root
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
+    networks:
+      back_net:
+        aliases:
+          - prometheus
+      front_net:
+        aliases:
+          - prometheus
+
 volumes:
   post_db:
+  prometheus_data:
 
 networks:
   back_net:
