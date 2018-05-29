@@ -79,3 +79,6 @@ supermegarega microservices repository
 - Протестирована работа мониторинга с помощью тестовой имитации падения зависимых сервисов
 - Настроен node-exporter для сбора метрик
 - Созданные в процессе работы образы залиты в https://hub.docker.com/r/smrdevops/
+- Настроен мониторинг MongoDB с использованием mirantisworkloads/mongodb-prometheus-exporter
+- Настроен мониторинг сервисов с использованием prom/blackbox-exporter
+- Создан Makefile для автоматизации сборки и загрузки образов в hub.docker.com
