@@ -82,3 +82,15 @@ supermegarega microservices repository
 - Настроен мониторинг MongoDB с использованием mirantisworkloads/mongodb-prometheus-exporter
 - Настроен мониторинг сервисов с использованием prom/blackbox-exporter
 - Создан Makefile для автоматизации сборки и загрузки образов в hub.docker.com
+
+# homework-20 Мониторинг приложения и инфраструктуры
+
+- Разделены файлы compose на приложения docker-compose.yml и мониторинг dockercompose-monitoring.yml
+- Установлен и настроен cAdvisor для наблюдения за состоянием наших Docker контейнеров
+- Установлена и настроена Grafana для визуализации данных из Prometheus
+- Импортирован дашборд DockerMonitoring для мониторинга Docker
+- Создан дашборд UI_Service_Monitoring для мониторинга работы приложения
+- Создан дашборд Business_Logic_Monitoring для мониторинга активности пользователей приложения
+- Установлен и настроен Alertmanager для обработки алертов и отправки оповещений
+- Настроена отправка оповещений в Slack
+- Созданные в процессе работы образы загружены в DockerHub https://hub.docker.com/u/smrdevops/
