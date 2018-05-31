@@ -94,3 +94,4 @@ supermegarega microservices repository
 - Установлен и настроен Alertmanager для обработки алертов и отправки оповещений
 - Настроена отправка оповещений в Slack
 - Созданные в процессе работы образы загружены в DockerHub https://hub.docker.com/u/smrdevops/
+- Добавлен в Makefile новый билд и загрузка образов в DockerHub

@@ -1,9 +1,10 @@
 include docker/.env
+export $(shell sed 's/=.*//' docker/.env)
 
-.PHONY: all build_ui build_post build_comment build_prometheus push_ui push_post push_comment push_prometheus
+.PHONY: all build_ui build_post build_comment build_prometheus build_alertmanager push_ui push_post push_comment push_prometheus push_alertmanager
 
 #Build
-build: build_ui build_post build_comment build_prometheus
+build: build_ui build_post build_comment build_prometheus build_alertmanager
 
 build_all: build
 
@@ -15,9 +16,11 @@ build_comment:
 	    cd src/comment && bash docker_build.sh
 build_prometheus:
 	    cd monitoring/prometheus docker build -t $(USER_NAME)/prometheus .
+build_alertmanager:
+	    cd monitoring/alertmanager docker build -t $(USER_NAME)/alertmanager .
 
 #Push images
-push: push_ui push_post push_comment push_prometheus
+push: push_ui push_post push_comment push_prometheus push_alertmanager
 
 push_all: push
 
@@ -29,4 +32,6 @@ push_comment:
 	docker push $(USER_NAME)/comment
 push_prometheus:
 	docker push $(USER_NAME)/prometheus
+push_alertmanager:
+	docker push $(USER_NAME)/alertmanager
 
